@@ -1,10 +1,15 @@
-from utils import flat
+from utils import flat, NotFindFunc
+import platform
+import datetime
 
-print("Python++ 1.0 2023 ICTLab Inc.")
+version = platform.python_version()
+print(f"Python++ 1.0 2023 ICTLab Inc.  Default({datetime.datetime.now()})")
+print(f"[Python {version}] on linux")
 print()
 
 
 variable = {}
+func = {}
 
 def evaluate(tree):
     if tree == None:
@@ -14,6 +19,9 @@ def evaluate(tree):
             return variable[tree]
         elif type(tree) == int:
             return tree
+        #引数なし関数の実行
+        elif tree in func:
+            evaluate(func[tree])
         elif type(tree) == str:
             return tree[1:-1]
     else:
@@ -80,7 +88,22 @@ def evaluate(tree):
             while evaluate(tree[0][1]):
                 evaluate(tree[0][2])
             evaluate(tree[1])
+        #引数なし関数
+        elif tree[0][0] == "func":
+            if type(tree[0][1]) == list:
+                func[tree[0][1][0]] = tree[0][2]
+                evaluate(tree[1])
+            else:    
+                func[tree[0][1]] = tree[0][2]
+                evaluate(tree[1])
+        #引数あり関数
+        elif tree[0][0] == "func":
+            func[tree[0][1][0]] = tree[0][2]
+            evaluate(tree[1])
+        #引数あり関数の実行
+        elif tree[0] in func:
+            evaluate(func[tree[0]])
         elif type(tree[0]) == list:
             evaluate(tree[0])
         else:
-            utils.NotFindFunc(tree[0])
+            NotFindFunc(tree[0])

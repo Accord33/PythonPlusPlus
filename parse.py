@@ -6,9 +6,8 @@ def parser(tokens):
     ast = semi()
 
     if len(t) > 0:
-        print(ast)
         print(t)
-        ReferenceError("Not Found Semicoron")
+        ReferenceError("Tokenが余っています")
 
     return ast
 
@@ -23,8 +22,10 @@ def value():
     elif data == "end":
         return None
     elif data == "case":
-        t.insert(data)
+        t.insert(0,data)
         return None
+    elif data == ")":
+        t.insert(0,data)
     else:
         return data
 
@@ -34,6 +35,9 @@ def paren():
         ast = semi()
         expect(t,")")
         return ast
+    elif accept(t, "()"):
+        expect(t,"()")
+        return None
     return value()
 
 def funccall():
@@ -44,10 +48,22 @@ def funccall():
         expect(t,"(")
         ast = [ast,semi()]
         expect(t,")")
+    if accept(t, "()"):
+        expect(t,"()")
+        return ast
+    return ast
+
+def func_model():
+    ast = funccall()
+    if ast == "func":
+        name = semi()
+        #print(name)
+        expect(t,":")
+        ast = [[ast,name,semi()],semi()]
     return ast
 
 def while_model():
-    ast = funccall()
+    ast = func_model()
     if ast == "while":
         condition = semi()
         expect(t,":")
