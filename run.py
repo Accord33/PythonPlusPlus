@@ -44,7 +44,7 @@ def evaluate(tree):
             left = evaluate(tree[0])
             right = evaluate(tree[2])
             return left - right
-        elif tree[1] == "-*":
+        elif tree[1] == "*":
             left = evaluate(tree[0])
             right = evaluate(tree[2])
             return left * right

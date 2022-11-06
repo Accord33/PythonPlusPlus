@@ -2,7 +2,7 @@ from ast import parse
 import re
 
 def lexer(prg):
-    tokens = re.split(r'/\/\/*$|(\d+.\d+|\d+|".*?"|\w+|;|:|\[|\])|\s|(.)/m|\n',prg)
+    tokens = re.split(r'/\/\/*$|(\d+.\d+|\d+|".*?"|\w+|;|:|\[|\]|\(|\))|\s|(.)/m|\n',prg)
 
     new_tokens = []
 
