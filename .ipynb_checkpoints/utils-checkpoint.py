@@ -23,6 +23,12 @@ def flat(arg):
             _list.append(i)
     return _list
 
+def execute(fun,args):
+    try:
+        result = eval(f"{fun}{args}")
+    except:
+        Value(f"{args}")
+    return result
 
 def NotFindFunc(agr1):
     print(f"The Function Is Not Found --> {arg1}")
@@ -30,4 +36,12 @@ def NotFindFunc(agr1):
 
 def ReferenceError(message):
     print(f"ReferenceError --> {message}")
+    sys.exit()
+    
+def ZeroDivision(message):
+    print(f"ZeroDivisionError --> {message}")
+    sys.exit()
+    
+def Value(message):
+    print(f"ValueError --> {message}")
     sys.exit()

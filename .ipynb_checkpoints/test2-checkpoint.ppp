@@ -1,8 +1,0 @@
-one = 1;
-
-while one < 10:
-    p(one);
-    one++;
-end
-
-p(one);

@@ -54,24 +54,23 @@ def funccall():
         return ast
     return ast
 
-def import_model():
+def import_module():
     ast = funccall()
     if ast == "import":
         prg = t.pop(0)
         ast = [[ast,prg],semi()]
     return ast
 
-def func_model():
-    ast = import_model()
+def func_module():
+    ast = import_module()
     if ast == "func":
         name = semi()
-        #print(name)
         expect(t,":")
         ast = [[ast,name,semi()],semi()]
     return ast
 
-def while_model():
-    ast = func_model()
+def while_module():
+    ast = func_module()
     if ast == "while":
         condition = semi()
         expect(t,":")
@@ -80,8 +79,8 @@ def while_model():
 
     return ast
 
-def if_model():
-    ast = while_model()
+def if_module():
+    ast = while_module()
     if ast == "if":
         condition = semi()
         expect(t, ":")
@@ -94,8 +93,14 @@ def if_model():
         ast = [[ast,condition,positive,negative],semi()]
     return ast
 
+def list_module():
+    ast = if_module()
+    if ast == "[":
+        ast = ["[",semi(),expect(t,"]")]
+    return ast
+
 def mod():
-    ast = if_model()
+    ast = list_module()
     while accept(t, "%"):
         op = expect(t, "%")
         ast = [ast, op, if_model()]
@@ -182,7 +187,7 @@ def comma():
     ast = comment_out()
     while accept(t, ","):
         expect(t,",")
-        ast = [ast, ",",comment_out()]
+        ast = [ast, ",",semi()]
     return ast
 
 def period():
@@ -197,5 +202,5 @@ def semi():
     ast = period()
     if len(t) != 0:
         while accept(t,";"):
-            ast = [ast,expect(t,";"),period()]
+            ast = [ast,expect(t,";"),semi()]
     return ast

@@ -1,4 +1,4 @@
-from utils import flat, NotFindFunc
+from utils import *
 import platform
 import datetime
 import json
@@ -19,6 +19,7 @@ print()
 
 variable = {}
 func = {}
+Reserved_word = {"p":"print","input":"input"}
 
 def evaluate(tree):
     if tree == None:
@@ -50,6 +51,8 @@ def evaluate(tree):
         elif tree[1] == "/":
             left = evaluate(tree[0])
             right = evaluate(tree[2])
+            if right == 0:
+                ZeroDivision("division by Zero")
             return left / right
         elif tree[1] == "++":
             left = evaluate(tree[0])
@@ -83,13 +86,17 @@ def evaluate(tree):
         elif tree[1] == ",":
             args = [evaluate(tree[0]),evaluate(tree[2])]
             return flat(args)
-        elif tree[0] == "p":
-            args = evaluate(tree[1])
-            if type(args) == list:
-                args = " ".join(args)
-            print(args)
-        elif tree[0] == "input":
-            return input(evaluate(tree[1]))
+        elif tree[0] == "[":
+            tree_list = []
+            tree.pop(0)
+            for i in tree:
+                print(i)
+                if i != "]" or i != ",":
+                    _list = evaluate(i)
+                    print(_list)
+                    tree_list.append(_list)
+            print(tree_list)
+            return tree_list
         elif tree[0][0] == "if":
             if evaluate(tree[0][1]):
                 evaluate(tree[0][2])
@@ -112,16 +119,24 @@ def evaluate(tree):
         elif tree[0][0] == "func":
             func[tree[0][1][0]] = tree[0][2]
             evaluate(tree[1])
-        #引数あり関数の実行
+        # 引数あり関数の実行
         elif tree[0] == "func":
             evaluate(func[tree[0]])
-        #import文
+        # import文
         elif tree[0][0] == "import":
-            with open(f"{tree[0][1]}.ppp","r") as f:
+            with open(f"{tree[0][1]}.ppp", "r") as f:
                 prg = f.read()
             evaluate(parser(lexer(prg)))
             evaluate(tree[1])
-            
+        # 標準関数実行
+        elif tree[0] in Reserved_word:
+            args = evaluate(tree[1])
+            if type(args) == list:
+                args = tuple(args)
+            else:
+                args = tuple([args])
+            return execute(Reserved_word[tree[0]], args)
+
         elif type(tree[0]) == list:
             evaluate(tree[0])
         else:
