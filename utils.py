@@ -5,7 +5,7 @@ def  expect(arg1,arg2):
     if token == arg2:
         return token
     else:
-        raise ValueError(f"{token}が間違っています")
+        Value(f"{token}が間違っています")
 
 def accept(arg1,arg2):
     if len(arg1) > 0:
@@ -30,7 +30,7 @@ def execute(fun,args):
         Value(f"{args}")
     return result
 
-def NotFindFunc(agr1):
+def NotFindFunc(agr1=None):
     print(f"The Function Is Not Found --> {arg1}")
     sys.exit()
 

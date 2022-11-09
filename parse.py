@@ -6,10 +6,8 @@ def parser(tokens):
     ast = semi()
 
     if len(t) > 0:
-        print(ast)
-        print(t)
+        print()
         ReferenceError("Tokenが余っています")
-
     return ast
 
 def value():
@@ -66,7 +64,7 @@ def func_module():
     if ast == "func":
         name = semi()
         expect(t,":")
-        ast = [[ast,name,semi()],semi()]
+        ast = [[ast,name[0],name[1:],semi()],semi()]
     return ast
 
 def while_module():
@@ -76,7 +74,6 @@ def while_module():
         expect(t,":")
         positive = semi()
         ast = [[ast,condition,positive],semi()]
-
     return ast
 
 def if_module():
@@ -103,7 +100,7 @@ def mod():
     ast = list_module()
     while accept(t, "%"):
         op = expect(t, "%")
-        ast = [ast, op, if_model()]
+        ast = [ast, op, if_module()]
     return ast
 
 def surplus():
