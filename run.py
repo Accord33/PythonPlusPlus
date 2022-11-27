@@ -4,6 +4,9 @@ import datetime
 import json
 from lexer import lexer
 from parse import parser
+import sys
+
+sys.path.append('./lib')
 
 with open("config.json","r") as f:
     data = json.load(f)[0]
@@ -41,7 +44,7 @@ def evaluate(tree, genv, lenv):
             left = evaluate(tree[0],genv,lenv)
             right = evaluate(tree[2],genv,lenv)
             if right == 0:
-                ZeroDivision("division by Zero")
+                ZeroDivision(f"{left} / {right} ゼロで割ってはいけません")
             return left / right
         elif tree[1] == "++":
             left = evaluate(tree[0],genv,lenv)
@@ -90,7 +93,7 @@ def evaluate(tree, genv, lenv):
             evaluate(parser(lexer(prg)),genv,lenv)
             evaluate(tree[1],genv,lenv)
         elif tree[0][0] == "using":
-            with open(f"{tree[0][1]}.pyp","r") as f:
+            with open(f"./lib/{tree[0][1]}.pyp","r") as f:
                 prg = json.load(f)[0]
             for i in prg:
                 if i == "import":
@@ -118,7 +121,4 @@ def evaluate(tree, genv, lenv):
         elif type(tree[0]) == list:
             evaluate(tree[0])
         else:
-            print(tree[0])
-            print(genv)
-            print("ERROR")
-            sys.exit()
+            NotFindFunc(tree[0])

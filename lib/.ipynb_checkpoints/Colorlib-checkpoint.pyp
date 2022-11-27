@@ -1,0 +1,15 @@
+[
+    {
+    "import":"Color",
+    "BLACK":"BLACK",
+    "RED":"RED",
+    "GREEN":"GREEN",
+    "YELLOW":"YELLOW",
+    "BLUE":"BLUE",
+    "MAGENTA":"MAGENTA",
+    "CYAN":"CYAN",
+    "WHITE":"WHITE",
+    "BOLD":"BOLD",
+    "UNDERLINE":"UNDERLINE"
+    }
+]

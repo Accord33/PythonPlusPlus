@@ -7,7 +7,8 @@ def parser(tokens):
 
     if len(t) > 0:
         print()
-        ReferenceError("Tokenが余っています")
+        print(t)
+        ReferenceError("セミコロンの付け忘れです")
     return ast
 
 def value():

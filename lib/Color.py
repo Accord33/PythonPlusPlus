@@ -1,0 +1,20 @@
+def BLACK(mes):
+    return '\033[30m'+mes+'\033[0m'
+def RED(mes):
+    return '\033[31m'+mes+'\033[0m'
+def GREEN(mes):
+    return '\033[32m'+mes+'\033[0m'
+def YELLOW(mes):
+    return '\033[33m'+mes+'\033[0m'
+def BLUE(mes):
+    return '\033[34m'+mes+'\033[0m'
+def MAGENTA(mes):
+    return '\033[35m'+mes+'\033[0m'
+def CYAN(mes):
+    return '\033[36m'+mes+'\033[0m'
+def WHITE(mes):
+    return '\033[37m'+mes+'\033[0m'
+def BOLD(mes):
+    return '\033[1m'+mes+'\033[0m'
+def UNDERLINE(mes):
+    return '\033[4m'+mes+'\033[0m'

@@ -1,11 +1,13 @@
 import sys
 
 def  expect(arg1,arg2):
+    if not len(arg1):
+        Value(f"{arg2} が存在しません")
     token = arg1.pop(0)
     if token == arg2:
         return token
     else:
-        Value(f"{token}が間違っています")
+        Value(f"{token} が間違っています")
 
 def accept(arg1,arg2):
     if len(arg1) > 0:
@@ -32,8 +34,8 @@ def using_module(lib,func):
     exec(f"from {lib} import {func}; function = {func}", globals(), ldict)
     return ldict['function']
 
-def NotFindFunc(agr1=None):
-    print(f"The Function Is Not Found --> {arg1}")
+def NotFindFunc(arg1=None):
+    print(f"NotFoundError --> {arg1}は存在しません")
     sys.exit()
 
 def ReferenceError(message):

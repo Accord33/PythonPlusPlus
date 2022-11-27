@@ -1,3 +1,4 @@
-using math
+using Colorlib
 
-p(sin(90));
+one = 10 / 0;
+p(RED(one));
