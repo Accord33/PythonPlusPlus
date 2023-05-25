@@ -11,6 +11,7 @@ p("Hello World!");
 #result
 Hello World!
 ```
+- プログラムを書いたらpython3 interpre.py <filename>とコマンドラインで打ち、実行をしてみましょう
 - Python++では```p```のあとはかならず()で囲います。
 - セミコロンが必要です。
 
